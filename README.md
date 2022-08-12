@@ -1,5 +1,12 @@
 # Inicio
 
+Requerimientos:
+
+node: 16.14.2
+npm: 8.7.0
+
+(Use volta, nvm, docker by example)
+
 Cómo ejecutar:
 
 ```
