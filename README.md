@@ -5,7 +5,7 @@ Cómo ejecutar:
 ```
 npm install
 
-npm run dev
+npm run watch
 ```
 
 ## Proceso de compilación
