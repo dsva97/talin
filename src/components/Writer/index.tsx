@@ -1,11 +1,20 @@
 import { ipcRenderer } from "electron/renderer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Writer = ({ defaultValue = "" }: { defaultValue?: string }) => {
   const [text, setText] = useState(defaultValue);
   const send = async () => {
     await ipcRenderer.invoke("my-invokable-ipc", text);
   };
+  useEffect(() => {
+    const listener = (_: any, phrase: string) => {
+      setText(phrase);
+    };
+    ipcRenderer.on("write", listener);
+    return () => {
+      ipcRenderer.off("write", listener);
+    };
+  }, []);
   return (
     <div>
       <h1>Writer</h1>

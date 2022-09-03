@@ -23,19 +23,20 @@ const openComponent = async (
       });
   }
 
-  win.webContents.openDevTools();
   await win.loadFile(resultCmp.path);
   resultCmp.cleanFile();
+  return win;
 };
 
 export const renderComponent = async (Cmp: Function, props: Object = {}) => {
   await app.whenReady();
-  openComponent(Cmp, props);
-  const render = () => {
+  const win = await openComponent(Cmp, props);
+  const render = async () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      openComponent(Cmp, props);
+      await openComponent(Cmp, props);
     }
   };
   app.on("activate", render);
   app.off("activate", render);
+  return win;
 };
